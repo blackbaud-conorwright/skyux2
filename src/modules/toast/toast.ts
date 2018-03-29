@@ -1,27 +1,23 @@
+import { ToastrService, IndividualConfig, ComponentType } from 'ngx-toastr';
 
 export interface ToastOptions {
   message?: string;
-  templateUrl?: string;
+  customComponentType?: ComponentType<any>;
   toastType?: string;
-  timeOut?: number | string;
-  resolve?: object;
-}
-export interface ToastConfiguration {
-  iconClass?: string;
   timeOut?: number;
   extendedTimeOut?: number;
+  disableTimeout?: boolean;
 }
 
 export class SkyToast {
-  constructor() {
+  constructor(private toastr: ToastrService) {
   }
 
-  public validateOptions(opts: ToastOptions) {
-    if (opts.message && opts.templateUrl) {
-      throw 'You must not provide both a message and a templateUrl.';
-    }
-    else if (!opts.message && !opts.templateUrl) {
-      throw 'You must provide either a message or a templateUrl.';
+  private validateOptions(opts: ToastOptions): ToastOptions {
+    if (opts.message && opts.customComponentType) {
+      throw 'You must not provide both a message and a customComponentType.';
+    } else if (!opts.message && !opts.customComponentType) {
+      throw 'You must provide either a message or a customComponentType.';
     }
 
     switch (opts.toastType) {
@@ -31,32 +27,35 @@ export class SkyToast {
         break;
       case 'danger':
         opts.toastType = 'error';
-      default:
-        opts.toastType = 'info';
-    }
-  }
-
-  public open(message: string, config: ToastConfiguration = {}, opts: ToastOptions) {
-    opts.message = message;
-    this.validateOptions(opts);
-    config.iconClass = 'bb-toast-' + opts.toastType;
-
-    switch (opts.timeOut) {
-      case 'infinite':
-        config.timeOut = config.extendedTimeOut = 0;
         break;
       default:
-        if (typeof opts.timeOut !== 'number') {
-          config.timeOut = config.extendedTimeOut = +opts.timeOut;
-        }
+        opts.toastType = 'info';
+        break;
     }
-    return toastr[opts.toastType](message, '', config);
+    return opts;
   }
 
-  public openMessage(opts: ToastOptions) {
-    return this.open(opts.message, null, opts);
+  public open(opts: ToastOptions) {
+    opts = this.validateOptions(opts);
+    let config: Partial<IndividualConfig> = {
+      toastClass: 'sky-toast-' + opts.toastType,
+      timeOut: opts.disableTimeout ? 0 : opts.timeOut,
+      extendedTimeOut: opts.disableTimeout ? 0 : opts.extendedTimeOut,
+      toastComponent: opts.customComponentType
+    };
+
+    return (this.toastr as any)[opts.toastType](opts.message, undefined, config);
   }
 
-  public openWithTemplate(opts: ToastOptions) {
+  public openMessage(message: string, opts: ToastOptions) {
+    opts.message = message;
+    opts.customComponentType = undefined;
+    return this.open(opts);
+  }
+
+  public openCustom(componentType: ComponentType<any>, opts: ToastOptions) {
+    opts.customComponentType = componentType;
+    opts.message = undefined;
+    return this.open(opts);
   }
 }
