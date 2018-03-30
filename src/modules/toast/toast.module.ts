@@ -8,8 +8,7 @@ import { SkyToast } from './toast';
     SkyToast
   ],
   imports: [
-    CommonModule,
-    ToastrService
+    CommonModule
   ],
   providers: [
     ToastrService
