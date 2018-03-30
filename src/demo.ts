@@ -84,6 +84,7 @@ import {
   SkySectionedModalFormDemoComponent,
   SkyTileDemoTile1Component,
   SkyTileDemoTile2Component,
+  SkyToastDemoComponent,
   SkyWizardDemoFormComponent,
   SkyFlyoutDemoInternalComponent
 } from './demos';
@@ -160,6 +161,7 @@ const components = [
   SkySectionedModalFormDemoComponent,
   SkyTileDemoTile1Component,
   SkyTileDemoTile2Component,
+  SkyToastDemoComponent,
   SkyWizardDemoFormComponent
 ];
 

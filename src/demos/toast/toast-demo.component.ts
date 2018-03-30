@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SkyToast, ToastOptions } from '../../modules/toast';
+import { DemoCustomToastComponent } from './toast-demo-custom-toast/toast-demo-custom-toast.component';
 
 @Component({
   selector: 'sky-toast-demo',
@@ -18,7 +19,7 @@ export class SkyToastDemoComponent {
     }
 
     public openTemplate() {
-        this.toast.openCustom();
+        this.toast.openCustom(DemoCustomToastComponent);
     }
 
     public openMessageInfinite() {

@@ -1,1 +1,1 @@
-export { SkyToast, ToastOptions } from './toast';
+export { SkyToastModule } from './toast.module';
