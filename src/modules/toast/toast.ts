@@ -47,13 +47,13 @@ export class SkyToast {
     return (this.toastr as any)[opts.toastType](opts.message, undefined, config);
   }
 
-  public openMessage(message: string, opts: ToastOptions) {
+  public openMessage(message: string, opts: ToastOptions = {}) {
     opts.message = message;
     opts.customComponentType = undefined;
     return this.open(opts);
   }
 
-  public openCustom(componentType: ComponentType<any>, opts: ToastOptions) {
+  public openCustom(componentType: ComponentType<any>, opts: ToastOptions = {}) {
     opts.customComponentType = componentType;
     opts.message = undefined;
     return this.open(opts);
