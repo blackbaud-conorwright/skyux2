@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
-import { SkyToast, ToastOptions } from '../../modules/toast';
-import { DemoCustomToastComponent } from './toast-demo-custom-toast/toast-demo-custom-toast.component';
+import { SkyToastDemoCustomComponent } from './toast-demo-custom.component';
+import {
+  SkyToastService
+} from '../../core';
 
 @Component({
   selector: 'sky-toast-demo',
   templateUrl: './toast-demo.component.html'
 })
 export class SkyToastDemoComponent {
-    constructor(private toast: SkyToast) {
+    constructor(private toast: SkyToastService) {
     }
 
     public openMessage(type?: string) {
-        let options: ToastOptions = {
+        let options = {
             toastType: type
         };
 
@@ -19,11 +21,11 @@ export class SkyToastDemoComponent {
     }
 
     public openTemplate() {
-        this.toast.openCustom(DemoCustomToastComponent);
+        this.toast.openCustom(SkyToastDemoCustomComponent);
     }
 
     public openMessageInfinite() {
-        let options: ToastOptions = {
+        let options = {
             disableTimeout: true
         };
         this.toast.openMessage('Infinite message', options);

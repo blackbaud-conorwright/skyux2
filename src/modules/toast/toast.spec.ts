@@ -1,14 +1,14 @@
-import { SkyToast, ToastOptions } from './toast';
+import { SkyToastService, ToastOptions } from './toast';
 import { ToastrService, ActiveToast, IndividualConfig } from 'ngx-toastr';
 
 describe('SkyToast class', () => {
   class TestComponent {}
-  let toast: SkyToast;
+  let toast: SkyToastService;
   let fakeToastrService: ToastrService;
 
   beforeEach(() => {
     fakeToastrService = {} as ToastrService;
-    toast = new SkyToast(fakeToastrService);
+    toast = new SkyToastService(fakeToastrService);
   });
 
   describe('openMessage() method', () => {

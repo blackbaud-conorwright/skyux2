@@ -1,4 +1,5 @@
 import { ToastrService, IndividualConfig, ComponentType } from 'ngx-toastr';
+import { Injectable } from '@angular/core';
 
 export interface ToastOptions {
   message?: string;
@@ -9,7 +10,8 @@ export interface ToastOptions {
   disableTimeout?: boolean;
 }
 
-export class SkyToast {
+@Injectable()
+export class SkyToastService {
   constructor(private toastr: ToastrService) {
   }
 
