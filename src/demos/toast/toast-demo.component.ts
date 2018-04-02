@@ -6,7 +6,8 @@ import {
 
 @Component({
   selector: 'sky-toast-demo',
-  templateUrl: './toast-demo.component.html'
+  templateUrl: './toast-demo.component.html',
+  providers: [SkyToastService]
 })
 export class SkyToastDemoComponent {
     constructor(private toast: SkyToastService) {
